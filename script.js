@@ -56,7 +56,7 @@ function updatePixel(event){
     
     
     var newPixel = prompt("enter size: ")
-    var oldPixel = canvasStyle.
+    var oldPixel = canvasStyle
     var newContainerCount =  containers.clientHeight/newPixel
     var newItemCount = items.clientwidth/newPixel
     
@@ -107,6 +107,4 @@ largest height - 400
 
 - smallest item 
 max width
-
-
 */
