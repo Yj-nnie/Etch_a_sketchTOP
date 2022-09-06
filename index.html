@@ -10,11 +10,21 @@
 <body>
     
     <h1 class="Name">Etch-A-Sketch</h1>
-    <div class="thebuttons">
-        
-        <button id = "clear" class="button-1" role="button">Clear the board</button>
-        &nbsp 
-        <button id="pixel"class="button-1" role="button">Change pixel</button>
+    <div class="content_display">    
+        <div class="thebuttons">
+            
+            <button id = "clear" class="button-1" role="button">Clear the board</button>
+            &nbsp 
+            
+            <div class="button-1">
+            <label>
+             Pixel size:    </label>
+            <input type="range" min="4" max="100" value="15" id="sizeRange" class="slider">
+            <label>
+                4px - 100 px   </label>
+            </div>
+          
+        </div>
 
 
     </div>

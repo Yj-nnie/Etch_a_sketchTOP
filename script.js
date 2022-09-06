@@ -1,26 +1,24 @@
 
-function initialize(e){
-    
-    const canvas = document.createElement('div');
-   // canvas.classList.add('my-canvas');
-    canvas.id="my-canvas";
-    
-        for(let idx = 1; idx <= initialPixels; idx++){
-            
-            const flexcontainer = document.createElement('div');    
-            flexcontainer.classList.add('flexbox-container');
 
-                for(let i = 0; i<= initialPixels; i++) {
-                const square = document.createElement('div');
-                square.classList.add("flexbox-item");
-                //add my hover effect
-                square.addEventListener('mouseenter', changeColor, false);
-                flexcontainer.appendChild(square);
-                }
+function initialize_grid(size){
 
-            canvas.appendChild(flexcontainer);
+    containerLocation.style.setProperty('--size',size)
+   
+    const grid_container = document.createElement('div');
+    grid_container.classList.add("grid_container");
+
+        for(let idx = 0; idx <= size*size; idx++){
+            const item = document.createElement('div');
+            item.classList.add('pixel');
+            // add Hover effect to change color
+            item.addEventListener('mouseenter', changeColor,false);
+            grid_container.appendChild(item);
         }
-    containerLocation.appendChild(canvas);
+
+   
+        containerLocation.appendChild(grid_container)
+
+
 }
 
 function changeColor(event){
@@ -37,7 +35,7 @@ function clearBoard(event){
     //revert button back to original color
     event.target.style.backgroundColor="#EA4C89";
     // grab boxes and recert back to original color
-    const boxes = document.getElementsByClassName('flexbox-item')
+    const boxes = document.getElementsByClassName('pixel')
     for(let i = 0; i < boxes.length; i++){
         boxes[i].style.backgroundColor="pink";
     } 
@@ -47,64 +45,57 @@ function clearBoard(event){
 function updatePixel(event){
 
 
-    const mycanvas = document.getElementById('my-canvas');
-    const containers= document.getElementsByClassName('flexbox-container');
-    const items = document.getElementsByClassName('flexbox-item');
-    const canvasStyle = getComputedStyle(mycanvas);
-    const containerStyle = getComputedStyle(mycanvas);
-    const boxStyle = getComputedStyle(mycanvas);
-    
-    
-    var newPixel = prompt("enter size: ")
-    var oldPixel = canvasStyle
-    var newContainerCount =  containers.clientHeight/newPixel
-    var newItemCount = items.clientwidth/newPixel
-    
-    console.log(containers.clientHeight)
+    //revert button back to original color
+    event.target.style.backgroundColor="#EA4C89";
+
+    const container= document.getElementsByClassName('grid_container');
+    const items = document.getElementsByClassName('pixel');
+
+    var newPixel = event.target.value
+    //prompt("enter size: ")
+
+   //default number of pixels
+    if (!newPixel){
+        newPixel = 6;
+    }
+
+    console.log(container.clientHeight)
     console.log(items.clientwidth)
 
     // remove nested divs and the canvas.
-    for(let j = containers.length-1; j >= 0; j--){
+    for(let j = container.length-1; j >= 0; j--){
 
         for(let i = items.length-1; i >= 0 ; i--){
             console.log(items[i])
             items[i].remove();
         } 
-        containers[j].remove();
+        container[j].remove();
     }
 
-    mycanvas.remove()
+    
 
    // initialPixels = newContainerCount;
-    initialize();
+   initialize_grid(newPixel)
 
 }
 
 
 // create the board
 const toLoad = document.getElementById('chooseSize');
-const containerLocation = document.querySelector('body');
+const containerLocation = document.querySelector('.content_display');
 //pixel globally accessible for creating board
 
-var initialPixels = 18
 
-initialize()
+var size = 12
+
+
+initialize_grid(size)
 
 //clear board function
 const toClear = document.getElementById('clear');
 toClear.addEventListener('click',clearBoard);
 
 //change pixel
-const changePixel= document.getElementById('pixel');
-changePixel.addEventListener('click', updatePixel);
+const changePixel= document.getElementById('sizeRange');
+changePixel.addEventListener('change', updatePixel);
 
-/* -- my canvas
-Largest width - 400
-largest height - 400
-
---flexbox container - height 22
--- flexbox container - width 400
-
-- smallest item 
-max width
-*/
